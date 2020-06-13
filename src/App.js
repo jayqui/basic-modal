@@ -1,50 +1,37 @@
-import React, { Component } from "react";
+import React, { useState } from 'react';
+import Modal from './components/Modal/Modal';
 
-import Modal from "./components/Modal/Modal";
+function App() {
+  const [modalIsShowing, setModalIsShowing] = useState(false);
 
-class App extends Component {
-  constructor() {
-    super();
-
-    this.state = {
-      isShowing: false,
-    };
-  }
-
-  openModalHandler = () => {
-    this.setState({
-      isShowing: true,
-    });
+  const handleOpenModal = () => {
+    setModalIsShowing(true);
   };
 
-  closeModalHandler = () => {
-    this.setState({
-      isShowing: false,
-    });
+  const handleCloseModal = () => {
+    setModalIsShowing(false);
   };
 
-  render() {
-    return (
-      <div>
-        {this.state.isShowing ? (
-          <div onClick={this.closeModalHandler} className="back-drop"></div>
-        ) : null}
+  return (
+    <div>
+      {modalIsShowing ? (
+        <div onClick={handleCloseModal} className="back-drop"></div>
+      ) : null}
 
-        <button className="open-modal-btn" onClick={this.openModalHandler}>
-          This should be the quote block itself!
-        </button>
+      <button className="open-modal-btn" onClick={handleOpenModal}>
+        This should be the quote block itself!
+      </button>
 
-        <Modal
-          className="modal"
-          show={this.state.isShowing}
-          close={this.closeModalHandler}
-        >
-          This is where the modal would pop up with more details regarding the
-          author and quote itself.
-        </Modal>
-      </div>
-    );
-  }
+      <Modal
+        className="modal"
+        showModal={modalIsShowing}
+        handleClose={handleCloseModal}
+      >
+        This is where the modal would pop up with more details regarding the
+        author and quote itself.
+      </Modal>
+    </div>
+  );
 }
 
 export default App;
