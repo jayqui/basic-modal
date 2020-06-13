@@ -1,23 +1,50 @@
-import React from "react";
+import React, { Component } from "react";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+import Modal from "./components/Modal/Modal";
+
+class App extends Component {
+  constructor() {
+    super();
+
+    this.state = {
+      isShowing: false,
+    };
+  }
+
+  openModalHandler = () => {
+    this.setState({
+      isShowing: true,
+    });
+  };
+
+  closeModalHandler = () => {
+    this.setState({
+      isShowing: false,
+    });
+  };
+
+  render() {
+    return (
+      <div>
+        {this.state.isShowing ? (
+          <div onClick={this.closeModalHandler} className="back-drop"></div>
+        ) : null}
+
+        <button className="open-modal-btn" onClick={this.openModalHandler}>
+          This should be the quote block itself!
+        </button>
+
+        <Modal
+          className="modal"
+          show={this.state.isShowing}
+          close={this.closeModalHandler}
         >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+          This is where the modal would pop up with more details regarding the
+          author and quote itself.
+        </Modal>
+      </div>
+    );
+  }
 }
 
 export default App;
